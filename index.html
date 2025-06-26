@@ -4,25 +4,46 @@
     <meta charset="UTF-8">
     <meta name="author" content="Ваше Прізвище та Ім'я">
     <title>Книгарня "Читай-місто"</title>
-    <link rel="stylesheet" type="text/css" href="style.css"> <style>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <style>
         /* Внутрішні стилі для index.html */
         body {
             background-color: #f0f8ff; /* Перевизначення фонового кольору, специфічне для цієї сторінки */
         }
-        .highlight { /* Клас для виділення тексту */
-            color: #d82d00; /* Темно-червоний колір */
+        .highlight {
+            color: #d82d00;
             font-weight: bold;
-            border-bottom: 1px dashed #d82d00; /* Пунктирна межа знизу */
+            border-bottom: 1px dashed #d82d00;
         }
-        #intro-paragraph { /* Стиль для конкретного абзацу за його ID */
-            font-size: 1.1em; /* Відносний розмір шрифту */
-            line-height: 1.6; /* Міжрядковий інтервал */
-            padding: 20px; /* Внутрішні відступи */
-            border: 1px solid #a7d9ff; /* Межа */
-            margin-bottom: 25px; /* Зовнішній відступ знизу */
-            background-color: #e0f2ff; /* Світло-блакитний фон */
-            border-radius: 8px; /* Закруглені кути */
-            box-shadow: 2px 2px 5px rgba(0,0,0,0.1); /* Легка тінь */
+        #intro-paragraph {
+            font-size: 1.1em;
+            line-height: 1.6;
+            padding: 20px;
+            border: 1px solid #a7d9ff;
+            margin-bottom: 25px;
+            background-color: #e0f2ff;
+            border-radius: 8px;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+        }
+        .js-section button { /* Стилі для кнопок JavaScript */
+            padding: 10px 20px;
+            margin: 5px;
+            background-color: #28a745; /* Зелений колір кнопки */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .js-section button:hover {
+            background-color: #218838;
+        }
+        #dynamicText, #currentTime {
+            margin-top: 15px;
+            padding: 10px;
+            border: 1px dashed #ccc;
+            background-color: #f0f0f0;
+            display: inline-block;
         }
     </style>
 </head>
@@ -48,8 +69,23 @@
     <h2 id="news">Останні новини</h2>
     <p>До нас надійшла нова партія наукової фантастики!</p>
 
+    <hr>
+
+    <h2>Інтерактивні елементи (JavaScript)</h2>
+    <div class="js-section">
+        <button onclick="greetUser()">Привітатися</button>
+        <button onclick="changeText()">Змінити текст</button>
+        <button onclick="demonstrateLoop()">Показати цикл (консоль)</button>
+        <button onclick="confirmAction()">Підтвердити дію</button>
+        
+        <p id="dynamicText">Цей текст буде змінений JavaScript.</p>
+        <p id="currentTime"></p>
+    </div>
+
+    <hr>
+
     <h3>Карта проїзду</h3>
     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2525.877083049581!2d30.49999031570769!3d50.45063897947547!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40d4ce50f6b5f63f%3A0x4b971f6e21626f63!2z0JzQkNCb0JDQndCi0JLQodCi0KbQotCV0J3QkNCNLCDQmtGW0YDQvtCy!5e0!3m2!1suk!2sua!4v1672605858682!5m2!1suk!2sua" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
 
-</body>
+    <script src="script.js"></script> </body>
 </html>
