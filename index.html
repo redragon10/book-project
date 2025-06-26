@@ -6,9 +6,9 @@
     <title>Книгарня "Читай-місто"</title>
     <link rel="stylesheet" type="text/css" href="style.css">
     <style>
-        /* Внутрішні стилі для index.html */
+        /* Внутрішні стилі для index.html (існуючі) */
         body {
-            background-color: #f0f8ff; /* Перевизначення фонового кольору, специфічне для цієї сторінки */
+            background-color: #f0f8ff;
         }
         .highlight {
             color: #d82d00;
@@ -23,12 +23,12 @@
             margin-bottom: 25px;
             background-color: #e0f2ff;
             border-radius: 8px;
-            box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+            box-shadow: 0 0 5px rgba(0,0,0,0.1);
         }
-        .js-section button { /* Стилі для кнопок JavaScript */
+        .js-section button {
             padding: 10px 20px;
             margin: 5px;
-            background-color: #28a745; /* Зелений колір кнопки */
+            background-color: #28a745;
             color: white;
             border: none;
             border-radius: 5px;
@@ -45,7 +45,7 @@
             background-color: #f0f0f0;
             display: inline-block;
         }
-        /* Стилі для форми (нові для ЛР5) */
+        /* Стилі для форми (з ЛР5) */
         .form-section {
             background-color: #ffffff;
             padding: 30px;
@@ -93,15 +93,133 @@
             background-color: #0056b3;
         }
         .error-message {
-            color: #dc3545; /* Червоний колір для повідомлень про помилки */
+            color: #dc3545;
             font-size: 0.9em;
             margin-top: 5px;
-            min-height: 18px; /* Забезпечення місця для повідомлення, щоб макет не "стрибав" */
+            min-height: 18px;
         }
-        .form-group input.error { /* Стиль для поля, яке містить помилку */
+        .form-group input.error {
             border-color: #dc3545;
         }
+
+        /* Стилі для Task Manager (з ЛР6) */
+        .task-manager {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            max-width: 600px;
+            margin: 30px auto;
+        }
+        .task-manager input[type="text"] {
+            width: calc(70% - 20px);
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1em;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+        .task-manager button {
+            padding: 10px 20px;
+            background-color: #17a2b8;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            vertical-align: middle;
+        }
+        .task-manager button:hover {
+            background-color: #138496;
+        }
+        #taskList {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+        #taskList li {
+            background-color: #f8f8f8;
+            border: 1px solid #eee;
+            padding: 12px 15px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-radius: 4px;
+        }
+        #taskList li.completed {
+            background-color: #e6ffe6;
+            text-decoration: line-through;
+            color: #888;
+        }
+        #taskList li .task-actions button {
+            background-color: transparent;
+            border: none;
+            padding: 5px 8px;
+            cursor: pointer;
+            font-size: 1.2em;
+        }
+        #taskList li .task-actions button.toggle-completed {
+            color: #28a745;
+            margin-right: 5px;
+        }
+        #taskList li .task-actions button.delete-task {
+            color: #dc3545;
+        }
+        #taskList li .task-actions button:hover {
+            opacity: 0.7;
+        }
+
+        /* Нові стилі для демонстрації DOM (ЛР4 оновлення) */
+        .dom-manipulation-section {
+            background-color: #f0f4f8;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            max-width: 700px;
+            margin: 30px auto;
+        }
+        .dom-manipulation-section button {
+            background-color: #6c757d; /* Сірий колір для кнопок DOM */
+            color: white;
+            padding: 8px 15px;
+            margin: 5px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .dom-manipulation-section button:hover {
+            background-color: #5a6268;
+        }
+        #domTarget, #textNodeTarget, #outerHtmlTarget {
+            border: 1px solid #a5a5a5;
+            padding: 10px;
+            margin-top: 10px;
+            background-color: #e9ecef;
+            min-height: 50px;
+        }
+        .query-elements div {
+            padding: 5px;
+            border: 1px dashed #7b7b7b;
+            margin: 5px 0;
+        }
     </style>
+
+    <script>
+        // Внутрішній скрипт для демонстрації (ЛР4 вимога)
+        document.addEventListener('DOMContentLoaded', function() {
+            // Демонстрація document.write (використовувати з обережністю, може перезаписати сторінку)
+            // У цьому випадку ми пишемо в існуючий div, щоб не зіпсувати макет.
+            const writeTarget = document.getElementById('writeTarget');
+            if (writeTarget) {
+                writeTarget.innerHTML = "<em>Цей текст додано за допомогою document.write з внутрішнього скрипту.</em>";
+            }
+            
+            alert('Ласкаво просимо на сторінку "Читай-місто"! (з внутрішнього скрипту)');
+        });
+    </script>
 </head>
 <body>
 
@@ -129,13 +247,50 @@
 
     <h2>Інтерактивні елементи (JavaScript)</h2>
     <div class="js-section">
-        <button onclick="greetUser()">Привітатися</button>
+        <button onclick="greetUser()">Діалог з користувачем</button>
         <button onclick="changeText()">Змінити текст</button>
         <button onclick="demonstrateLoop()">Показати цикл (консоль)</button>
-        <button onclick="confirmAction()">Підтвердити дію</button>
+        <button onclick="confirmAction()">Перенаправлення (location)</button>
+        <button onclick="displayDeveloperInfo('Далівалієв', 'Ельнур', 'Розробник сайту')">Інфо про розробника</button>
+        <button onclick="compareStringsWrapper()">Порівняти рядки</button>
+        <button onclick="changeBackgroundTemporarily()">Змінити фон на 30с</button>
         
         <p id="dynamicText">Цей текст буде змінений JavaScript.</p>
         <p id="currentTime"></p>
+    </div>
+
+    <hr>
+
+    <h2>Демонстрація DOM-маніпуляцій</h2>
+    <div class="dom-manipulation-section">
+        <h3>document.write (з внутрішнього скрипту)</h3>
+        <div id="writeTarget">
+            <p>Цей блок для `document.write` демонстрації.</p>
+        </div>
+
+        <h3>Використання querySelectorAll та nodeValue</h3>
+        <div class="query-elements">
+            <div class="query-item">Перший елемент</div>
+            <div class="query-item special">Другий елемент (special)</div>
+            <div class="query-item">Третій елемент</div>
+        </div>
+        <button onclick="demonstrateQuerySelectorAll()">Показати querySelectorAll & nodeValue</button>
+        <div id="textNodeTarget">Початковий текст для nodeValue / data.</div>
+        <p>Результат querySelectorAll та nodeValue буде виведено в консоль та на попередній блок.</p>
+
+        <h3>innerHTML, outerHTML, textContent та методи вставки/видалення</h3>
+        <div id="domTarget">
+            <p id="firstParagraph">Це <strong>перший</strong> абзац.</p>
+            <p id="secondParagraph">Це другий абзац.</p>
+            <p id="removableParagraph">Цей абзац буде видалено.</p>
+        </div>
+        <button onclick="demonstrateDOMNodeProperties()">Показати innerText, innerHTML, textContent</button>
+        <button onclick="demonstrateOuterHTML()">Показати outerHTML</button>
+        <button onclick="demonstrateNodeInsertionAndRemoval()">Додати/Видалити/Замінити елементи</button>
+
+        <div id="outerHtmlTarget">
+            <p>Цей абзац буде замінений через outerHTML.</p>
+        </div>
     </div>
 
     <hr>
@@ -167,9 +322,18 @@
 
     <hr>
 
+    <h2>Мій список завдань</h2>
+    <div class="task-manager">
+        <input type="text" id="newTaskInput" placeholder="Додати нове завдання...">
+        <button id="addTaskButton">Додати завдання</button>
+        <ul id="taskList">
+            </ul>
+    </div>
+
+    <hr>
+
     <h3>Карта проїзду</h3>
     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2525.877083049581!2d30.49999031570769!3d50.45063897947547!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40d4ce50f6b5f63f%3A0x4b971f6e21626f63!2z0JzQkNCb0JDQndCi0JLQodCi0KbQotCV0J3QkNCNLCDQmtGW0YDQvtCy!5e0!3m2!1suk!2sua!4v1672605858682!5m2!1suk!2sua" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
 
-    <script src="script.js"></script>
-</body>
+    <script src="script.js"></script> </body>
 </html>

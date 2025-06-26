@@ -162,3 +162,111 @@ hr {
 .form-group input.error { /* Стиль для поля, яке містить помилку */
     border-color: #dc3545;
 }
+
+/* style.css */
+
+/* ... (Існуючі стилі з ЛР3, ЛР4 (попередні), ЛР5) ... */
+
+/* Стилі для Task Manager (з ЛР6) */
+.task-manager {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    max-width: 600px;
+    margin: 30px auto;
+}
+.task-manager input[type="text"] {
+    width: calc(70% - 20px);
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1em;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+.task-manager button {
+    padding: 10px 20px;
+    background-color: #17a2b8;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    vertical-align: middle;
+}
+.task-manager button:hover {
+    background-color: #138496;
+}
+#taskList {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+#taskList li {
+    background-color: #f8f8f8;
+    border: 1px solid #eee;
+    padding: 12px 15px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 4px;
+}
+#taskList li.completed {
+    background-color: #e6ffe6;
+    text-decoration: line-through;
+    color: #888;
+}
+#taskList li .task-actions button {
+    background-color: transparent;
+    border: none;
+    padding: 5px 8px;
+    cursor: pointer;
+    font-size: 1.2em;
+}
+#taskList li .task-actions button.toggle-completed {
+    color: #28a745;
+    margin-right: 5px;
+}
+#taskList li .task-actions button.delete-task {
+    color: #dc3545;
+}
+#taskList li .task-actions button:hover {
+    opacity: 0.7;
+}
+
+/* Нові стилі для демонстрації DOM (ЛР4 оновлення) */
+.dom-manipulation-section {
+    background-color: #f0f4f8;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    max-width: 700px;
+    margin: 30px auto;
+}
+.dom-manipulation-section button {
+    background-color: #6c757d;
+    color: white;
+    padding: 8px 15px;
+    margin: 5px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.dom-manipulation-section button:hover {
+    background-color: #5a6268;
+}
+#domTarget, #textNodeTarget, #outerHtmlTarget {
+    border: 1px solid #a5a5a5;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #e9ecef;
+    min-height: 50px;
+}
+.query-elements div {
+    padding: 5px;
+    border: 1px dashed #7b7b7b;
+    margin: 5px 0;
+}
