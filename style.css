@@ -270,3 +270,83 @@ hr {
     border: 1px dashed #7b7b7b;
     margin: 5px 0;
 }
+
+/* style.css */
+
+/* ... існуючі стилі ... */
+
+/* НОВІ СТИЛІ ДЛЯ ЛР7 (Event Handling) */
+.event-handling-section {
+    background-color: #e8f5e9; /* Світло-зелений фон */
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    max-width: 700px;
+    margin: 30px auto;
+}
+.event-handling-section button {
+    background-color: #4CAF50; /* Зелений колір */
+    color: white;
+    padding: 10px 15px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.event-handling-section button:hover {
+    background-color: #45a049;
+}
+.event-handling-section #removeListenerButton {
+    background-color: #f44336; /* Червоний колір для видалення */
+}
+.event-handling-section #removeListenerButton:hover {
+    background-color: #da190b;
+}
+
+.delegated-list {
+    list-style: none;
+    padding: 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top: 15px;
+}
+.delegated-list li {
+    padding: 10px 15px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+.delegated-list li:last-child {
+    border-bottom: none;
+}
+.delegated-list li:hover {
+    background-color: #f0f0f0;
+}
+.delegated-list li.highlighted {
+    background-color: #fffacd; /* Світло-жовтий */
+    font-weight: bold;
+}
+
+.action-menu {
+    border: 1px solid #a7d9ff;
+    background-color: #e0f2ff;
+    padding: 15px;
+    border-radius: 5px;
+    margin-top: 15px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+.action-menu button {
+    background-color: #555;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.action-menu button:hover {
+    background-color: #333;
+}

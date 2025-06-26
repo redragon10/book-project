@@ -181,7 +181,7 @@
             margin: 30px auto;
         }
         .dom-manipulation-section button {
-            background-color: #6c757d; /* Сірий колір для кнопок DOM */
+            background-color: #6c757d;
             color: white;
             padding: 8px 15px;
             margin: 5px;
@@ -205,13 +205,136 @@
             border: 1px dashed #7b7b7b;
             margin: 5px 0;
         }
+
+        /* Стилі для API Section (з ЛР7, якщо вирішите залишити) */
+        .api-section {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            max-width: 700px;
+            margin: 30px auto;
+        }
+        .api-section button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .api-section button:hover {
+            background-color: #0056b3;
+        }
+        #loadingIndicator {
+            margin-top: 15px;
+            font-style: italic;
+            color: #555;
+        }
+        .data-container {
+            margin-top: 20px;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+        .data-item {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .data-item h3 {
+            margin-top: 0;
+            color: #333;
+        }
+        .data-item p {
+            color: #666;
+            line-height: 1.5;
+        }
+
+        /* НОВІ СТИЛІ ДЛЯ ЛР7 (Event Handling) */
+        .event-handling-section {
+            background-color: #e8f5e9; /* Світло-зелений фон */
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            max-width: 700px;
+            margin: 30px auto;
+        }
+        .event-handling-section button {
+            background-color: #4CAF50; /* Зелений колір */
+            color: white;
+            padding: 10px 15px;
+            margin: 5px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .event-handling-section button:hover {
+            background-color: #45a049;
+        }
+        .event-handling-section #removeListenerButton {
+            background-color: #f44336; /* Червоний колір для видалення */
+        }
+        .event-handling-section #removeListenerButton:hover {
+            background-color: #da190b;
+        }
+
+        .delegated-list {
+            list-style: none;
+            padding: 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-top: 15px;
+        }
+        .delegated-list li {
+            padding: 10px 15px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        .delegated-list li:last-child {
+            border-bottom: none;
+        }
+        .delegated-list li:hover {
+            background-color: #f0f0f0;
+        }
+        .delegated-list li.highlighted {
+            background-color: #fffacd; /* Світло-жовтий */
+            font-weight: bold;
+        }
+
+        .action-menu {
+            border: 1px solid #a7d9ff;
+            background-color: #e0f2ff;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 15px;
+            display: flex;
+            gap: 10px; /* Відстань між кнопками */
+            flex-wrap: wrap; /* Перенесення кнопок на новий рядок, якщо не поміщаються */
+        }
+        .action-menu button {
+            background-color: #555; /* Темно-сірий */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .action-menu button:hover {
+            background-color: #333;
+        }
     </style>
 
     <script>
         // Внутрішній скрипт для демонстрації (ЛР4 вимога)
         document.addEventListener('DOMContentLoaded', function() {
-            // Демонстрація document.write (використовувати з обережністю, може перезаписати сторінку)
-            // У цьому випадку ми пишемо в існуючий div, щоб не зіпсувати макет.
             const writeTarget = document.getElementById('writeTarget');
             if (writeTarget) {
                 writeTarget.innerHTML = "<em>Цей текст додано за допомогою document.write з внутрішнього скрипту.</em>";
@@ -251,7 +374,7 @@
         <button onclick="changeText()">Змінити текст</button>
         <button onclick="demonstrateLoop()">Показати цикл (консоль)</button>
         <button onclick="confirmAction()">Перенаправлення (location)</button>
-        <button onclick="displayDeveloperInfo('Далівалієв', 'Ельнур', 'Розробник сайту')">Інфо про розробника</button>
+        <button onclick="displayDeveloperInfo('Іваненко', 'Іван', 'Розробник сайту')">Інфо про розробника</button>
         <button onclick="compareStringsWrapper()">Порівняти рядки</button>
         <button onclick="changeBackgroundTemporarily()">Змінити фон на 30с</button>
         
@@ -332,8 +455,46 @@
 
     <hr>
 
+    <h2>Лабораторна робота №7: Обробка та Делегування Подій</h2>
+
+    <div class="event-handling-section">
+        <h3>1. Демонстрація подій миші та обробників</h3>
+        <button onclick="showAlertFromAttribute()">Клік (атрибут)</button>
+        <button id="propertyButton">Клік (властивість)</button>
+        <button id="addEventListenerButton">Клік (addEventListener)</button>
+        <button id="removeListenerButton" style="background-color: #dc3545;">Видалити обробник addEventListener</button>
+        <button id="objectHandlerButton">Клік (об'єкт-обробник)</button>
+
+        <p id="eventOutput" style="margin-top: 15px; border: 1px dashed #bbb; padding: 10px; min-height: 30px;">
+            Тут буде виведено інформацію про події.
+        </p>
+
+        <h3>2. Делегування подій: Підсвічування елементів списку</h3>
+        <ul id="colorClickList" class="delegated-list">
+            <li>Елемент 1</li>
+            <li>Елемент 2</li>
+            <li>Елемент 3</li>
+            <li>Елемент 4</li>
+        </ul>
+        <p>Клікніть по елементах списку для підсвічування.</p>
+
+        <h3>3. Патерн "Поведінка" з data-атрибутами</h3>
+        <div id="actionMenu" class="action-menu">
+            <button data-action="save">Зберегти</button>
+            <button data-action="load">Завантажити</button>
+            <button data-action="delete">Видалити</button>
+            <button data-action="print">Друк</button>
+        </div>
+        <p id="actionOutput" style="margin-top: 15px; border: 1px dashed #bbb; padding: 10px; min-height: 30px;">
+            Виберіть дію.
+        </p>
+    </div>
+
+    <hr>
+
     <h3>Карта проїзду</h3>
     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2525.877083049581!2d30.49999031570769!3d50.45063897947547!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40d4ce50f6b5f63f%3A0x4b971f6e21626f63!2z0JzQkNCb0JDQndCi0JLQodCi0KbQotCV0J3QkNCNLCDQmtGW0YDQvtCy!5e0!3m2!1suk!2sua!4v1672605858682!5m2!1suk!2sua" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
 
-    <script src="script.js"></script> </body>
+    <script src="script.js"></script>
+</body>
 </html>
