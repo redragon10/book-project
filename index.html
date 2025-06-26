@@ -45,6 +45,62 @@
             background-color: #f0f0f0;
             display: inline-block;
         }
+        /* Стилі для форми (нові для ЛР5) */
+        .form-section {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            max-width: 500px;
+            margin: 30px auto;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group input[type="password"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1em;
+        }
+        .form-group input:focus {
+            border-color: #007bff;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.25);
+        }
+        .form-section button[type="submit"] {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .form-section button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        .error-message {
+            color: #dc3545; /* Червоний колір для повідомлень про помилки */
+            font-size: 0.9em;
+            margin-top: 5px;
+            min-height: 18px; /* Забезпечення місця для повідомлення, щоб макет не "стрибав" */
+        }
+        .form-group input.error { /* Стиль для поля, яке містить помилку */
+            border-color: #dc3545;
+        }
     </style>
 </head>
 <body>
@@ -84,8 +140,36 @@
 
     <hr>
 
+    <h2>Реєстрація / Вхід</h2>
+    <div class="form-section">
+        <form id="registrationForm">
+            <div class="form-group">
+                <label for="name">Ім'я:</label>
+                <input type="text" id="name" name="name" placeholder="Введіть ваше ім'я">
+                <div class="error-message" id="nameError"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" placeholder="Введіть ваш Email">
+                <div class="error-message" id="emailError"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Пароль:</label>
+                <input type="password" id="password" name="password" placeholder="Введіть ваш пароль (мін. 6 симв.)">
+                <div class="error-message" id="passwordError"></div>
+            </div>
+
+            <button type="submit">Зареєструватися / Увійти</button>
+        </form>
+    </div>
+
+    <hr>
+
     <h3>Карта проїзду</h3>
     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2525.877083049581!2d30.49999031570769!3d50.45063897947547!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40d4ce50f6b5f63f%3A0x4b971f6e21626f63!2z0JzQkNCb0JDQndCi0JLQodCi0KbQotCV0J3QkNCNLCDQmtGW0YDQvtCy!5e0!3m2!1suk!2sua!4v1672605858682!5m2!1suk!2sua" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
 
-    <script src="script.js"></script> </body>
+    <script src="script.js"></script>
+</body>
 </html>
