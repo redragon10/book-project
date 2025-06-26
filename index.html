@@ -330,6 +330,88 @@
         .action-menu button:hover {
             background-color: #333;
         }
+
+        /* НОВІ СТИЛІ ДЛЯ ЛР8 (Mouse Events & Drag and Drop) */
+        .mouse-events-section {
+            background-color: #fff3cd; /* Світло-жовтий фон */
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            max-width: 700px;
+            margin: 30px auto;
+            position: relative; /* Для позиціонування перетягуваних елементів */
+        }
+        .hover-container {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        .hover-box {
+            background-color: #f8d7da; /* Світло-червоний */
+            border: 2px solid #dc3545;
+            padding: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            text-align: center;
+            width: 150px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        .hover-box.highlight-hover {
+            background-color: #d4edda; /* Світло-зелений */
+            border-color: #28a745;
+            transform: scale(1.05);
+            box-shadow: 0 0 10px rgba(40, 167, 69, 0.5);
+        }
+
+        .drag-drop-area {
+            border: 2px dashed #007bff;
+            background-color: #e0f7fa;
+            padding: 20px;
+            min-height: 200px;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            position: relative;
+        }
+        #draggableImage {
+            cursor: grab;
+            position: relative; /* Важливо для перетягування */
+            z-index: 1000; /* Щоб був поверх інших елементів */
+        }
+        #draggableImage.dragging {
+            cursor: grabbing;
+            opacity: 0.7;
+            border: 2px dashed #0056b3;
+        }
+        .drop-target {
+            border: 2px solid #28a745;
+            background-color: #d4edda;
+            padding: 20px;
+            min-width: 200px;
+            min-height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-weight: bold;
+            color: #28a745;
+        }
+        .drop-target.hovered {
+            background-color: #c3e6cb;
+            border-color: #218838;
+            box-shadow: 0 0 15px rgba(40, 167, 69, 0.7);
+        }
+        .drop-target.dropped {
+            background-color: #28a745;
+            color: white;
+        }
     </style>
 
     <script>
@@ -488,6 +570,31 @@
         <p id="actionOutput" style="margin-top: 15px; border: 1px dashed #bbb; padding: 10px; min-height: 30px;">
             Виберіть дію.
         </p>
+    </div>
+
+    <hr>
+
+    <h2>Лабораторна робота №8: Події миші та Drag and Drop</h2>
+
+    <div class="mouse-events-section">
+        <h3>1. `mouseover` та `mouseout` з `event.target`/`event.relatedTarget`</h3>
+        <div id="hoverContainer" class="hover-container">
+            <div class="hover-box" data-id="1">Наведи на мене 1</div>
+            <div class="hover-box" data-id="2">Наведи на мене 2</div>
+            <div class="hover-box" data-id="3">Наведи на мене 3</div>
+        </div>
+        <p id="hoverOutput" style="margin-top: 15px; border: 1px dashed #bbb; padding: 10px; min-height: 30px;">
+            Тут буде виведено інформацію про наведення.
+        </p>
+
+        <h3>2. Реалізація Drag and Drop</h3>
+        <div class="drag-drop-area">
+            <img id="draggableImage" src="https://placehold.co/100x100/ADD8E6/000000?text=Drag%20Me" alt="Перетягни мене">
+            <div id="dropTarget" class="drop-target">
+                Перетягни зображення сюди
+            </div>
+        </div>
+        <p id="dropStatus" style="margin-top: 15px; font-weight: bold;">Статус: Очікування перетягування...</p>
     </div>
 
     <hr>

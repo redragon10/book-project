@@ -1,7 +1,7 @@
 // script.js
 
-// ... (Ваш існуючий код з попередніх лабораторних робіт: ЛР4, ЛР5, ЛР6) ...
-// Зручно розташувати новий код ЛР7 в кінці файлу script.js
+// ... (Ваш існуючий код з попередніх лабораторних робіт: ЛР4, ЛР5, ЛР6, ЛР7) ...
+// Зручно розташувати новий код ЛР8 в кінці файлу script.js
 
 // Функції з ЛР4 (попередні та оновлені)
 function greetUser() {
@@ -100,7 +100,7 @@ function demonstrateDOMNodeProperties() {
     if (domTarget && firstP) {
         alert("innerHTML domTarget: " + domTarget.innerHTML);
         alert("textContent domTarget: " + domTarget.textContent);
-        alert("innerText firstParagraph: " + firstP.innerText);
+        alert("innerText firstP: " + firstP.innerText);
 
         domTarget.innerHTML += "<p><em>Це новий абзац, доданий через innerHTML.</em></p>";
         alert("innerHTML domTarget змінено!");
@@ -320,40 +320,32 @@ function toggleTaskCompleted(id) {
 }
 
 
-// ============== НОВИЙ КОД ДЛЯ ЛР7: Обробка та Делегування Подій ==============
-
+// Функції з ЛР7: Обробка та Делегування Подій
 const eventOutput = document.getElementById('eventOutput');
 const propertyButton = document.getElementById('propertyButton');
 const addEventListenerButton = document.getElementById('addEventListenerButton');
 const removeListenerButton = document.getElementById('removeListenerButton');
 const objectHandlerButton = document.getElementById('objectHandlerButton');
 
-// 1. Демонстрація подій миші та обробників
-
-// Обробник через атрибут HTML (вже в index.html: onclick="showAlertFromAttribute()")
 function showAlertFromAttribute() {
     eventOutput.innerText = "Подія спрацювала: Клік з HTML-атрибуту!";
     console.log("Клік з HTML-атрибуту", event.currentTarget);
 }
 
-// Обробник через властивість DOM-об'єкта
 function handlePropertyClick() {
     eventOutput.innerText = "Подія спрацювала: Клік з властивості DOM-об'єкта!";
     console.log("Клік з властивості DOM-об'єкта", event.currentTarget);
 }
 
-// Обробник №1 для addEventListener
 function handleAddEventListenerClick1(event) {
     eventOutput.innerText = "Подія спрацювала: Клік з addEventListener (обробник 1)!";
     console.log("Клік з addEventListener (обробник 1)", event.currentTarget);
 }
 
-// Обробник №2 для addEventListener (та ж подія, інший обробник)
 function handleAddEventListenerClick2(event) {
     console.log("Клік з addEventListener (обробник 2) - додатковий лог!", event.currentTarget);
 }
 
-// Об'єкт-обробник з методом handleEvent
 const myObjectHandler = {
     message: "Це об'єкт-обробник!",
     handleEvent(event) {
@@ -362,45 +354,34 @@ const myObjectHandler = {
     }
 };
 
-// Функція для видалення обробника
 function removeMyEventListener() {
-    // Важливо: для видалення потрібно передати той самий обробник та ті самі опції, що й при додаванні
     addEventListenerButton.removeEventListener('click', handleAddEventListenerClick1);
     addEventListenerButton.removeEventListener('click', handleAddEventListenerClick2);
     eventOutput.innerText = "Обробники 'addEventListener' видалено з кнопки 'Клік (addEventListener)'.";
     console.log("Обробники видалені.");
 }
 
-
-// 2. Делегування подій: Підсвічування елементів списку
-
 const colorClickList = document.getElementById('colorClickList');
 
 function handleListClick(event) {
-    // Перевіряємо, чи клік відбувся саме на елементі <li> всередині списку
     if (event.target.tagName === 'LI') {
-        // Знімаємо підсвічування з усіх раніше підсвічених елементів
         const currentlyHighlighted = colorClickList.querySelector('.highlighted');
         if (currentlyHighlighted) {
             currentlyHighlighted.classList.remove('highlighted');
         }
-        // Додаємо підсвічування до поточного елемента
         event.target.classList.add('highlighted');
         eventOutput.innerText = `Вибрано елемент списку: ${event.target.innerText}`;
     }
 }
 
-
-// 3. Патерн "Поведінка" з data-атрибутами
-
 const actionMenu = document.getElementById('actionMenu');
 const actionOutput = document.getElementById('actionOutput');
 
 function handleMenuAction(event) {
-    const targetButton = event.target.closest('button[data-action]'); // Знаходимо найближчу кнопку з data-action
+    const targetButton = event.target.closest('button[data-action]');
 
     if (targetButton) {
-        const action = targetButton.dataset.action; // Отримуємо значення data-action
+        const action = targetButton.dataset.action;
 
         switch (action) {
             case 'save':
@@ -418,25 +399,128 @@ function handleMenuAction(event) {
             default:
                 actionOutput.innerText = "Невідома дія.";
         }
-        console.log(`Дія виконана: ${action}`, event.currentTarget); // event.currentTarget буде #actionMenu
+        console.log(`Дія виконана: ${action}`, event.currentTarget);
     }
 }
+
+// ============== НОВИЙ КОД ДЛЯ ЛР8: Події миші та Drag and Drop ==============
+
+const hoverContainer = document.getElementById('hoverContainer');
+const hoverOutput = document.getElementById('hoverOutput');
+const draggableImage = document.getElementById('draggableImage');
+const dropTarget = document.getElementById('dropTarget');
+const dropStatus = document.getElementById('dropStatus');
+
+let isDragging = false;
+let offsetX, offsetY; // Зміщення курсора відносно верхнього лівого кута перетягуваного елемента
+
+// 1. mouseover та mouseout з event.target/event.relatedTarget
+if (hoverContainer) {
+    hoverContainer.addEventListener('mouseover', (event) => {
+        // Перевіряємо, чи ми "зайшли" на hover-box ззовні контейнера або з іншого hover-box
+        if (event.target.classList.contains('hover-box') && !event.target.contains(event.relatedTarget)) {
+            event.target.classList.add('highlight-hover');
+            hoverOutput.innerText = `Наведено на: ${event.target.innerText}`;
+            console.log(`Mouseover на: ${event.target.innerText}, relatedTarget:`, event.relatedTarget);
+        }
+    });
+
+    hoverContainer.addEventListener('mouseout', (event) => {
+        // Перевіряємо, чи ми "вийшли" з hover-box в інший елемент або за межі контейнера
+        if (event.target.classList.contains('hover-box') && !event.target.contains(event.relatedTarget)) {
+            event.target.classList.remove('highlight-hover');
+            hoverOutput.innerText = `Курсор залишив: ${event.target.innerText}`;
+            console.log(`Mouseout з: ${event.target.innerText}, relatedTarget:`, event.relatedTarget);
+        }
+    });
+}
+
+
+// 2. Реалізація Drag and Drop
+if (draggableImage) {
+    draggableImage.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        draggableImage.classList.add('dragging');
+        draggableImage.style.position = 'absolute'; // Встановлюємо позицію для перетягування
+        
+        // Розраховуємо зміщення курсора відносно верхнього лівого кута елемента
+        offsetX = e.clientX - draggableImage.getBoundingClientRect().left;
+        offsetY = e.clientY - draggableImage.getBoundingClientRect().top;
+
+        // Початкова позиція зображення
+        //draggableImage.style.left = e.pageX - offsetX + 'px';
+        //draggableImage.style.top = e.pageY - offsetY + 'px';
+
+        dropStatus.innerText = "Статус: Перетягування розпочато...";
+        console.log("Drag started!");
+    });
+}
+
+document.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+
+    // Оновлюємо позицію елемента, враховуючи зміщення курсора
+    draggableImage.style.left = (e.pageX - offsetX) + 'px';
+    draggableImage.style.top = (e.pageY - offsetY) + 'px';
+
+    // Перевірка, чи курсор знаходиться над dropTarget
+    const dropTargetRect = dropTarget.getBoundingClientRect();
+    const isOverDropTarget = e.clientX > dropTargetRect.left &&
+                             e.clientX < dropTargetRect.right &&
+                             e.clientY > dropTargetRect.top &&
+                             e.clientY < dropTargetRect.bottom;
+
+    if (isOverDropTarget) {
+        dropTarget.classList.add('hovered');
+    } else {
+        dropTarget.classList.remove('hovered');
+    }
+});
+
+document.addEventListener('mouseup', (e) => {
+    if (!isDragging) return;
+
+    isDragging = false;
+    draggableImage.classList.remove('dragging');
+
+    // Перевірка, чи елемент відпущено над зоною dropTarget
+    const dropTargetRect = dropTarget.getBoundingClientRect();
+    const draggableImageRect = draggableImage.getBoundingClientRect();
+
+    const landedInDropTarget = draggableImageRect.left < dropTargetRect.right &&
+                               draggableImageRect.right > dropTargetRect.left &&
+                               draggableImageRect.top < dropTargetRect.bottom &&
+                               draggableImageRect.bottom > dropTargetRect.top;
+
+    if (landedInDropTarget) {
+        dropStatus.innerText = "Статус: Елемент успішно перетягнуто!";
+        dropTarget.classList.add('dropped');
+        dropTarget.innerText = "Зображення перетягнуто!";
+
+        // Опціонально: розмістити елемент всередині dropTarget
+        //draggableImage.style.position = 'static'; // Повернути до нормального потоку
+        //dropTarget.appendChild(draggableImage);
+        // draggableImage.style.left = '0'; // Скинути стилі позиціонування
+        // draggableImage.style.top = '0';
+        
+    } else {
+        dropStatus.innerText = "Статус: Елемент відпущено поза цільовою зоною.";
+        dropTarget.classList.remove('dropped');
+        dropTarget.innerText = "Перетягни зображення сюди";
+    }
+    dropTarget.classList.remove('hovered'); // Прибрати ховер клас
+    console.log("Drag ended!");
+});
 
 
 // ============== ОБРОБНИКИ ПОДІЙ І ІНІЦІАЛІЗАЦІЯ ==============
 document.addEventListener('DOMContentLoaded', () => {
-    // Існуючі обробники подій (з ЛР4, ЛР5, ЛР6)
-    // Функція displayCurrentTime() потребує елемент <p id="currentTime">
+    // Існуючі обробники подій (з ЛР4, ЛР5, ЛР6, ЛР7)
     const currentTimeElement = document.getElementById('currentTime');
     if (currentTimeElement) {
-        // Це проста функція, яка може оновлювати час, якщо вона визначена
-        // Для цієї лаби можна її просто імітувати або залишити як є, якщо вона була робочою
-        // Наприклад:
         currentTimeElement.innerText = `Поточний час: ${new Date().toLocaleTimeString()}`;
-        // setInterval(() => { currentTimeElement.innerText = `Поточний час: ${new Date().toLocaleTimeString()}`; }, 1000);
     }
     
-
     const registrationForm = document.getElementById('registrationForm');
     if (registrationForm) {
         registrationForm.addEventListener('submit', validateForm);
@@ -455,118 +539,28 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // НОВІ обробники подій для ЛР7
-    // Призначення обробника через властивість
+    // ЛР7 обробники
     if (propertyButton) {
         propertyButton.onclick = handlePropertyClick;
     }
-
-    // Призначення обробників через addEventListener
     if (addEventListenerButton) {
         addEventListenerButton.addEventListener('click', handleAddEventListenerClick1);
-        addEventListenerButton.addEventListener('click', handleAddEventListenerClick2); // Кілька обробників
+        addEventListenerButton.addEventListener('click', handleAddEventListenerClick2);
     }
-
-    // Призначення об'єкта-обробника
     if (objectHandlerButton) {
         objectHandlerButton.addEventListener('click', myObjectHandler);
     }
-
-    // Обробник для видалення
     if (removeListenerButton) {
         removeListenerButton.addEventListener('click', removeMyEventListener);
     }
-
-    // Делегування подій для списку
     if (colorClickList) {
         colorClickList.addEventListener('click', handleListClick);
     }
-
-    // Патерн "Поведінка" для меню
     if (actionMenu) {
         actionMenu.addEventListener('click', handleMenuAction);
     }
+
+    // ЛР8 обробники (Drag and Drop вже глобально на document)
+    // mouseover/mouseout на hoverContainer вже підключені вище.
+
 });
-
-// Функції Fetch API з попередньої ЛР7, якщо ви їх зберегли і хочете залишити.
-// Якщо ви хочете повністю зосередитись на новій ЛР7, можете їх видалити або закоментувати.
-/*
-const fetchPostsButton = document.getElementById('fetchPostsButton');
-const fetchUsersButton = document.getElementById('fetchUsersButton');
-const loadingIndicator = document.getElementById('loadingIndicator');
-const apiError = document.getElementById('apiError');
-const apiDataContainer = document.getElementById('apiDataContainer');
-
-async function fetchData(url, type) {
-    apiDataContainer.innerHTML = '';
-    apiError.style.display = 'none';
-    loadingIndicator.style.display = 'block';
-
-    try {
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-
-        loadingIndicator.style.display = 'none';
-        
-        if (type === 'posts') {
-            renderPosts(data);
-        } else if (type === 'users') {
-            renderUsers(data);
-        }
-
-    } catch (error) {
-        console.error('Помилка при отриманні даних:', error);
-        loadingIndicator.style.display = 'none';
-        apiError.innerText = `Не вдалося завантажити дані: ${error.message}`;
-        apiError.style.display = 'block';
-    }
-}
-
-function renderPosts(posts) {
-    apiDataContainer.innerHTML = '<h3>Останні пости:</h3>';
-    if (posts && posts.length > 0) {
-        posts.slice(0, 5).forEach(post => {
-            const postDiv = document.createElement('div');
-            postDiv.classList.add('data-item');
-            postDiv.innerHTML = `
-                <h3>${post.title}</h3>
-                <p>${post.body}</p>
-            `;
-            apiDataContainer.appendChild(postDiv);
-        });
-    } else {
-        apiDataContainer.innerHTML += '<p>Пости не знайдено.</p>';
-    }
-}
-
-function renderUsers(users) {
-    apiDataContainer.innerHTML = '<h3>Користувачі:</h3>';
-    if (users && users.length > 0) {
-        users.forEach(user => {
-            const userDiv = document.createElement('div');
-            userDiv.classList.add('data-item');
-            userDiv.innerHTML = `
-                <h3>${user.name} (${user.username})</h3>
-                <p>Email: ${user.email}</p>
-                <p>Місто: ${user.address.city}</p>
-            `;
-            apiDataContainer.appendChild(userDiv);
-        });
-    } else {
-        apiDataContainer.innerHTML += '<p>Користувачів не знайдено.</p>';
-    }
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    // ... існуючі обробники
-    if (fetchPostsButton) {
-        fetchPostsButton.addEventListener('click', () => fetchData('https://jsonplaceholder.typicode.com/posts', 'posts'));
-    }
-    if (fetchUsersButton) {
-        fetchUsersButton.addEventListener('click', () => fetchData('https://jsonplaceholder.typicode.com/users', 'users'));
-    }
-});
-*/

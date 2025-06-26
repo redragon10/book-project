@@ -350,3 +350,109 @@ hr {
 .action-menu button:hover {
     background-color: #333;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* style.css */
+
+/* ... існуючі стилі ... */
+
+/* НОВІ СТИЛІ ДЛЯ ЛР8 (Mouse Events & Drag and Drop) */
+.mouse-events-section {
+    background-color: #fff3cd; /* Світло-жовтий фон */
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    max-width: 700px;
+    margin: 30px auto;
+    position: relative; /* Важливо: для позиціонування перетягуваних елементів, якщо вони абсолютні */
+}
+.hover-container {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    flex-wrap: wrap;
+}
+.hover-box {
+    background-color: #f8d7da; /* Світло-червоний */
+    border: 2px solid #dc3545;
+    padding: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    text-align: center;
+    width: 150px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+.hover-box.highlight-hover {
+    background-color: #d4edda; /* Світло-зелений */
+    border-color: #28a745;
+    transform: scale(1.05);
+    box-shadow: 0 0 10px rgba(40, 167, 69, 0.5);
+}
+
+.drag-drop-area {
+    border: 2px dashed #007bff;
+    background-color: #e0f7fa;
+    padding: 20px;
+    min-height: 200px;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    position: relative; /* Контейнер для перетягування */
+}
+#draggableImage {
+    cursor: grab;
+    position: relative; /* Елемент буде рухатися відносно свого нормального потоку */
+    z-index: 1000; /* Щоб був поверх інших елементів під час перетягування */
+    /* Додаємо транзишн, щоб повернення було плавним, якщо елемент відпустили поза зоною */
+    transition: left 0.1s ease, top 0.1s ease; 
+}
+#draggableImage.dragging {
+    cursor: grabbing;
+    opacity: 0.7;
+    border: 2px dashed #0056b3;
+    transition: none; /* Вимикаємо плавний перехід під час активного перетягування */
+}
+.drop-target {
+    border: 2px solid #28a745;
+    background-color: #d4edda;
+    padding: 20px;
+    min-width: 200px;
+    min-height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-weight: bold;
+    color: #28a745;
+    transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.drop-target.hovered {
+    background-color: #c3e6cb;
+    border-color: #218838;
+    box-shadow: 0 0 15px rgba(40, 167, 69, 0.7);
+}
+.drop-target.dropped {
+    background-color: #28a745;
+    color: white;
+}
